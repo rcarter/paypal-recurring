@@ -31,6 +31,9 @@ module PayPal
       attr_accessor :trial_length
       attr_accessor :trial_period
       attr_accessor :trial_amount
+      attr_accessor :username
+      attr_accessor :password
+      attr_accessor :signature
 
       def initialize(options = {})
         options.each {|name, value| send("#{name}=", value)}
@@ -68,7 +71,10 @@ module PayPal
           :item_category,
           :item_name,
           :item_amount,
-          :item_quantity
+          :item_quantity,
+          :username,
+          :password,
+          :signature
         ).merge(
           :payment_action => "Authorization",
           :no_shipping => 1,
@@ -85,7 +91,11 @@ module PayPal
       #   response = ppr.suspend
       #
       def suspend
-        request.run(:manage_profile, :action => :suspend, :profile_id => profile_id)
+        params = collect(
+          :username, :password, :signature
+        ).merge(:action => :suspend, :profile_id => profile_id)
+        request.run(:manage_profile, params)
+        # request.run(:manage_profile, :action => :suspend, :profile_id => profile_id)
       end
 
       # Reactivate a suspended recurring profile.
@@ -94,7 +104,10 @@ module PayPal
       #   response = ppr.reactivate
       #
       def reactivate
-        request.run(:manage_profile, :action => :reactivate, :profile_id => profile_id)
+        params = collect(
+          :username, :password, :signature
+        ).merge(:action => :reactivate, :profile_id => profile_id)
+        request.run(:manage_profile, params)
       end
 
       # Cancel a recurring profile.
@@ -104,7 +117,10 @@ module PayPal
       #   response = ppr.cancel
       #
       def cancel
-        request.run(:manage_profile, :action => :cancel, :profile_id => profile_id)
+        params = collect(
+          :username, :password, :signature
+        ).merge(:action => :cancel, :profile_id => profile_id)        
+        request.run(:manage_profile, params)
       end
 
       # Return checkout details.
@@ -113,7 +129,10 @@ module PayPal
       #   response = ppr.checkout_details
       #
       def checkout_details
-        request.run(:details, :token => token)
+        params = collect(
+          :username, :password, :signature
+        ).merge(:token => token)        
+        request.run(:details, params)
       end
 
       # Request payment.
@@ -141,7 +160,10 @@ module PayPal
             :item_category,
             :item_name,
             :item_amount,
-            :item_quantity
+            :item_quantity,
+            :username,
+            :password,
+            :signature
             ).merge(:payment_action => "Sale")
         request.run(:payment, params)
       end
@@ -195,7 +217,10 @@ module PayPal
           :item_category,
           :item_name,
           :item_amount,
-          :item_quantity
+          :item_quantity,
+          :username,
+          :password,
+          :signature
         )
         request.run(:create_profile, params)
       end
@@ -226,7 +251,10 @@ module PayPal
           :start_at, 
           :outstanding, 
           :ipn_url, 
-          :email)
+          :email,
+          :username,
+          :password,
+          :signature)
         request.run(:update_profile, params)
       end
 
@@ -259,6 +287,9 @@ module PayPal
           :amount,
           :currency,
           :note,
+          :username,
+          :password,
+          :signature
         )
 
         request.run(:refund, params)
