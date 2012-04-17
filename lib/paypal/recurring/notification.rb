@@ -56,7 +56,8 @@ module PayPal
       end
 
       def valid?
-        completed? && verified? && email == PayPal::Recurring.email && seller_id == PayPal::Recurring.seller_id
+        # completed? && verified? && email == PayPal::Recurring.email && seller_id == PayPal::Recurring.seller_id
+        verified? && email == PayPal::Recurring.email && seller_id == PayPal::Recurring.seller_id
       end
 
       def completed?
