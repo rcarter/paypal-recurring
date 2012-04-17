@@ -52,7 +52,9 @@ module PayPal
       ATTRIBUTES = {
         :action                => "ACTION",
         :amount                => ["PAYMENTREQUEST_0_AMT", "AMT"],
+        :bg_color              => "HDRBACKCOLOR",
         :billing_type          => "L_BILLINGTYPE0",
+        :border_color          => "HDRBORDERCOLOR",
         :cancel_url            => "CANCELURL",
         :currency              => ["PAYMENTREQUEST_0_CURRENCYCODE", "CURRENCYCODE"],
         :description           => ["DESC", "PAYMENTREQUEST_0_DESC", "L_BILLINGAGREEMENTDESCRIPTION0"],
@@ -68,6 +70,7 @@ module PayPal
         :initial_amount_action => "FAILEDINITAMTACTION",
         :ipn_url               => ["PAYMENTREQUEST_0_NOTIFYURL", "NOTIFYURL"],
         :locale                => "LOCALECODE",
+        :logo                  => "HDRIMG",       
         :method                => "METHOD",
         :no_shipping           => "NOSHIPPING",
         :outstanding           => "AUTOBILLOUTAMT",
@@ -88,7 +91,8 @@ module PayPal
         :trial_length          => "TRIALTOTALBILLINGCYCLES",
         :trial_period          => "TRIALBILLINGPERIOD",
         :username              => "USER",
-        :version               => "VERSION"
+        :version               => "VERSION",
+        :shipping_amount       => "SHIPPINGAMT"
       }
 
       CA_FILE = File.dirname(__FILE__) + "/cacert.pem"

@@ -11,6 +11,7 @@ module PayPal
       attr_accessor :frequency
       attr_accessor :initial_amount
       attr_accessor :initial_amount_action
+      attr_accessor :shipping_amount
       attr_accessor :ipn_url
       attr_accessor :locale
       attr_accessor :outstanding
@@ -34,6 +35,9 @@ module PayPal
       attr_accessor :username
       attr_accessor :password
       attr_accessor :signature
+      attr_accessor :locale          
+      attr_accessor :logo                
+      attr_accessor :bg_color
 
       def initialize(options = {})
         options.each {|name, value| send("#{name}=", value)}
